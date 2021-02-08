@@ -34,7 +34,7 @@ export default {
         transitionFunction: 'ease',
         automaticSlideInterval: '5s',
         automatic: false,
-        maxWidth: 1450,
+        maxWidth: 1300,
     },
     /* wwEditor:start */
     wwEditorConfiguration({ content }) {
@@ -45,7 +45,7 @@ export default {
         return {
             currentSlide: 1,
             autoInterval: null,
-            slideWidth: 800,
+            slideWidth: 720,
         };
     },
     watch: {
@@ -148,7 +148,7 @@ export default {
 
 <style lang="scss" scoped>
 .slider {
-    --max-width: 1450px;
+    --max-width: 1300px;
 
     position: relative;
     min-height: 80vh;
