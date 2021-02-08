@@ -4,7 +4,7 @@
         "type": "git",
         "url": "https://github.com/weweb-assets/callisto-slider-vue"
     },
-    "version": "0.0.1",
+    "version": "1.0.0",
     "scripts": {
         "build": "weweb build",
         "serve": "weweb serve"
