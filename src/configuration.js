@@ -1,4 +1,16 @@
 const BASIC_OPTIONS = {
+    maxWidth: {
+        label: {
+            en: 'Max width',
+            fr: 'Largeur maximale',
+        },
+        type: 'Number',
+        options: {
+            min: 0,
+            step: 1,
+        },
+        path: 'maxWidth',
+    },
     slidesNumber: {
         label: { en: 'Number of slides', fr: 'Nombre de slides' },
         type: 'TextSelect',
@@ -49,6 +61,18 @@ const BASIC_OPTIONS = {
 };
 
 const AUTOMATIC_OPTIONS = {
+    maxWidth: {
+        label: {
+            en: 'Max width',
+            fr: 'Largeur maximale',
+        },
+        type: 'Number',
+        options: {
+            min: 0,
+            step: 1,
+        },
+        path: 'maxWidth',
+    },
     slidesNumber: {
         label: { en: 'Number of slides', fr: 'Nombre de slides' },
         type: 'TextSelect',

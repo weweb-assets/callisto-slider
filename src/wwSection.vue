@@ -1,12 +1,12 @@
 <template>
-    <div class="slider">
+    <div class="slider" :style="sectionMaxWidth">
         <wwLayout class="top-layout" :class="{ isEditing: isEditing }" path="top"></wwLayout>
         <div class="slide-container" :style="currentTranslation">
             <div class="slide" v-for="index in slides" :key="index">
                 <wwLayout class="slide-layout" :class="{ isEditing: isEditing }" :path="`slides[${index}]`"></wwLayout>
             </div>
         </div>
-        <div class="next-slide-container" @click="nextSlide">
+        <div class="next-slide-container" :style="nextButtonPos" @click="nextSlide">
             <wwLayout class="next-slide" :class="{ isEditing: isEditing }" path="next" @click="nextSlide"></wwLayout>
         </div>
         <wwLayout class="bottom-layout" :class="{ isEditing: isEditing }" path="bottom"></wwLayout>
@@ -30,10 +30,11 @@ export default {
         slides: [],
         next: [],
         slidesNumber: '3',
-        transitionDuration: 1.8,
+        transitionDuration: 0.8,
         transitionFunction: 'ease',
         automaticSlideInterval: '5s',
         automatic: false,
+        maxWidth: 1450,
     },
     /* wwEditor:start */
     wwEditorConfiguration({ content }) {
@@ -44,6 +45,7 @@ export default {
         return {
             currentSlide: 1,
             autoInterval: null,
+            slideWidth: 800,
         };
     },
     watch: {
@@ -57,13 +59,8 @@ export default {
             interval =
                 interval <= this.content.transitionDuration ? interval + this.content.transitionDuration : interval;
 
-            if (interval <= this.content.transitionDuration) {
-                console.log('too small');
-            }
-
             if (this.content.automatic) {
                 this.autoInterval = setInterval(() => {
-                    console.log(interval);
                     this.nextSlide();
                 }, interval * 1000);
             } else {
@@ -82,7 +79,6 @@ export default {
 
             if (this.content.automatic) {
                 this.autoInterval = setInterval(() => {
-                    console.log(interval);
                     this.nextSlide();
                 }, interval * 1000);
             }
@@ -106,6 +102,16 @@ export default {
                 '--transition-style': this.content.transitionFunction,
             };
         },
+        sectionMaxWidth() {
+            return {
+                '--max-width': `${this.content.maxWidth}px`,
+            };
+        },
+        nextButtonPos() {
+            return {
+                '--left-position': `${this.slideWidth}px`,
+            };
+        },
     },
     methods: {
         nextSlide() {
@@ -125,18 +131,30 @@ export default {
             clearInterval(this.autoInterval);
             this.autoInterval = null;
         },
+        handleWindowSize() {
+            this.slideWidth = document.querySelectorAll('.slide')[this.currentSlide].offsetWidth;
+        },
     },
     mounted() {
         this.nextElement = document.querySelector('.next-slide-container');
+        this.slideWidth = document.querySelectorAll('.slide')[this.currentSlide].offsetWidth;
+        window.addEventListener('resize', this.handleWindowSize);
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.handleWindowSize);
     },
 };
 </script>
 
 <style lang="scss" scoped>
 .slider {
+    --max-width: 1450px;
+
+    position: relative;
     min-height: 80vh;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
+    max-width: var(--max-width);
 
     .bottom-layout,
     .top-layout {
@@ -172,7 +190,6 @@ export default {
             min-width: 80%;
             margin-left: 20%;
             min-height: 200px;
-            // background-color: burlywood;
 
             .slide-layout {
                 display: flex;
@@ -193,7 +210,16 @@ export default {
     }
 
     .next-slide-container {
-        z-index: 1;
+        --left-position: 800px;
+
+        position: absolute;
+        width: 20px;
+        left: var(--left-position);
+        margin-left: 17%;
+        top: 50%;
+        transform: translateY(-100%) translateX(-100%);
+
+        z-index: 10;
         opacity: 1;
         transition: all 0.2s;
 
@@ -203,11 +229,6 @@ export default {
         }
 
         .next-slide {
-            position: absolute;
-            right: 20%;
-            top: 50%;
-            transform: translateY(-50%) translateX(50%);
-
             &.isEditing {
                 border: 1px dashed var(--ww-color-dark-500);
             }
