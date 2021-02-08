@@ -1,5 +1,5 @@
 const BASIC_OPTIONS = {
-    maxWidth: {
+    sliderMaxWidth: {
         label: {
             en: 'Max width',
             fr: 'Largeur maximale',
@@ -61,7 +61,7 @@ const BASIC_OPTIONS = {
 };
 
 const AUTOMATIC_OPTIONS = {
-    maxWidth: {
+    sliderMaxWidth: {
         label: {
             en: 'Max width',
             fr: 'Largeur maximale',
