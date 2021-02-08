@@ -1,5 +1,6 @@
 <template>
     <div class="slider">
+        <wwLayout class="top-layout" :class="{ isEditing: isEditing }" path="top"></wwLayout>
         <div class="slide-container" :style="currentTranslation">
             <div class="slide" v-for="index in slides" :key="index">
                 <wwLayout class="slide-layout" :class="{ isEditing: isEditing }" :path="`slides[${index}]`"></wwLayout>
@@ -8,6 +9,7 @@
         <div class="next-slide-container" @click="nextSlide">
             <wwLayout class="next-slide" :class="{ isEditing: isEditing }" path="next" @click="nextSlide"></wwLayout>
         </div>
+        <wwLayout class="bottom-layout" :class="{ isEditing: isEditing }" path="bottom"></wwLayout>
     </div>
 </template>
 
@@ -23,6 +25,8 @@ export default {
         /* wwEditor:end */
     },
     wwDefaultContent: {
+        top: [],
+        bottom: [],
         slides: [],
         next: [],
         slidesNumber: '3',
@@ -133,6 +137,17 @@ export default {
     min-height: 80vh;
     overflow: hidden;
     width: 100%;
+
+    .bottom-layout,
+    .top-layout {
+        min-height: 50px;
+        width: 84%;
+        margin: auto;
+
+        &.isEditing {
+            border: 1px dashed var(--ww-color-dark-500);
+        }
+    }
 
     .slide-container {
         --current-translation: 0%;
