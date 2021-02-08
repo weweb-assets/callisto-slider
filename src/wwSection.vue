@@ -144,6 +144,10 @@ export default {
         width: 84%;
         margin: auto;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+
         &.isEditing {
             border: 1px dashed var(--ww-color-dark-500);
         }
