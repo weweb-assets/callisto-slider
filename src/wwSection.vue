@@ -47,7 +47,7 @@ export default {
         transitionFunction: 'ease',
         automaticSlideInterval: '5s',
         automatic: false,
-        maxWidth: 1300,
+        // maxWidth: 1300,
     },
     /* wwEditor:start */
     wwEditorConfiguration({ content }) {
@@ -115,11 +115,11 @@ export default {
                 '--transition-style': this.content.transitionFunction,
             };
         },
-        sectionMaxWidth() {
-            return {
-                '--max-width': `${this.content.maxWidth}px`,
-            };
-        },
+        // sectionMaxWidth() {
+        //     return {
+        //         '--max-width': `${this.content.maxWidth}px`,
+        //     };
+        // },
         nextButtonPos() {
             return {
                 '--left-position': `${this.slideWidth}px`,
@@ -150,7 +150,10 @@ export default {
     },
     mounted() {
         this.nextElement = document.querySelector('.next-slide-container');
-        this.slideWidth = document.querySelectorAll('.slide')[this.currentSlide].offsetWidth;
+        this.$nextTick(() => {
+            this.nextElement = document.querySelector('.next-slide-container');
+            this.slideWidth = document.querySelectorAll('.slide')[this.currentSlide].offsetWidth;
+        });
         window.addEventListener('resize', this.handleWindowSize);
     },
     beforeDestroy() {
@@ -161,13 +164,10 @@ export default {
 
 <style lang="scss" scoped>
 .slider {
-    // --max-width: 1300px;
-
     position: relative;
     min-height: 80vh;
     overflow: visible;
     width: 100%;
-    // max-width: var(--max-width);
 
     .bottom-layout,
     .top-layout {

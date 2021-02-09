@@ -1,16 +1,16 @@
 const BASIC_OPTIONS = {
-    sliderMaxWidth: {
-        label: {
-            en: 'Max width',
-            fr: 'Largeur maximale',
-        },
-        type: 'Number',
-        options: {
-            min: 0,
-            step: 1,
-        },
-        path: 'maxWidth',
-    },
+    // sliderMaxWidth: {
+    //     label: {
+    //         en: 'Max width',
+    //         fr: 'Largeur maximale',
+    //     },
+    //     type: 'Number',
+    //     options: {
+    //         min: 0,
+    //         step: 1,
+    //     },
+    //     path: 'maxWidth',
+    // },
     slidesNumber: {
         label: { en: 'Number of slides', fr: 'Nombre de slides' },
         type: 'TextSelect',
@@ -61,18 +61,18 @@ const BASIC_OPTIONS = {
 };
 
 const AUTOMATIC_OPTIONS = {
-    sliderMaxWidth: {
-        label: {
-            en: 'Max width',
-            fr: 'Largeur maximale',
-        },
-        type: 'Number',
-        options: {
-            min: 0,
-            step: 1,
-        },
-        path: 'maxWidth',
-    },
+    // sliderMaxWidth: {
+    //     label: {
+    //         en: 'Max width',
+    //         fr: 'Largeur maximale',
+    //     },
+    //     type: 'Number',
+    //     options: {
+    //         min: 0,
+    //         step: 1,
+    //     },
+    //     path: 'maxWidth',
+    // },
     slidesNumber: {
         label: { en: 'Number of slides', fr: 'Nombre de slides' },
         type: 'TextSelect',
