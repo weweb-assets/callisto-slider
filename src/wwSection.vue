@@ -1,5 +1,5 @@
 <template>
-    <div class="slider" :style="sectionMaxWidth">
+    <div class="slider">
         <wwLayout class="top-layout" :class="{ isEditing: isEditing }" path="top"></wwLayout>
 
         <div class="slider-content">
@@ -59,6 +59,7 @@ export default {
             currentSlide: 1,
             autoInterval: null,
             slideWidth: 720,
+            slideElements: null,
         };
     },
     watch: {
@@ -145,15 +146,16 @@ export default {
             this.autoInterval = null;
         },
         handleWindowSize() {
-            this.slideWidth = document.querySelectorAll('.slide')[this.currentSlide].offsetWidth;
+            this.slideElements = document.querySelector('.slider');
+            this.slideWidth = this.slideElements.offsetWidth * 0.7;
         },
+        // updateSlideSize() {
+        //     this.slideElements = document.querySelector('.slider');
+        //     this.slideWidth = this.slideElements.offsetWidth * 0.8;
+        // },
     },
     mounted() {
-        this.nextElement = document.querySelector('.next-slide-container');
-        this.$nextTick(() => {
-            this.nextElement = document.querySelector('.next-slide-container');
-            this.slideWidth = document.querySelectorAll('.slide')[this.currentSlide].offsetWidth;
-        });
+        this.handleWindowSize();
         window.addEventListener('resize', this.handleWindowSize);
     },
     beforeDestroy() {
@@ -167,12 +169,12 @@ export default {
     position: relative;
     min-height: 80vh;
     overflow: visible;
+    border: 1px solid red;
     width: 100%;
 
     .bottom-layout,
     .top-layout {
         min-height: 50px;
-        // width: 84%;
         margin: auto;
 
         display: flex;
@@ -225,11 +227,19 @@ export default {
             position: absolute;
             left: var(--left-position);
             top: 50%;
-            transform: translateY(-50%) translateX(0%);
+            transform: translateY(-50%) translateX(-50%);
 
             z-index: 10;
             opacity: 1;
             transition: all 0.2s;
+
+            @media (max-width: 767.98px) {
+                margin-left: 20%;
+            }
+
+            @media (max-width: 991.98px) {
+                margin-left: 20%;
+            }
 
             &.hidden {
                 opacity: 0;
