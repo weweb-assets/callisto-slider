@@ -1,14 +1,27 @@
 <template>
     <div class="slider" :style="sectionMaxWidth">
         <wwLayout class="top-layout" :class="{ isEditing: isEditing }" path="top"></wwLayout>
-        <div class="slide-container" :style="currentTranslation">
-            <div class="slide" v-for="index in slides" :key="index">
-                <wwLayout class="slide-layout" :class="{ isEditing: isEditing }" :path="`slides[${index}]`"></wwLayout>
+
+        <div class="slider-content">
+            <div class="slide-container" :style="currentTranslation">
+                <div class="slide" v-for="index in slides" :key="index">
+                    <wwLayout
+                        class="slide-layout"
+                        :class="{ isEditing: isEditing }"
+                        :path="`slides[${index}]`"
+                    ></wwLayout>
+                </div>
+            </div>
+            <div class="next-slide-container" :style="nextButtonPos" @click="nextSlide">
+                <wwLayout
+                    class="next-slide"
+                    :class="{ isEditing: isEditing }"
+                    path="next"
+                    @click="nextSlide"
+                ></wwLayout>
             </div>
         </div>
-        <div class="next-slide-container" :style="nextButtonPos" @click="nextSlide">
-            <wwLayout class="next-slide" :class="{ isEditing: isEditing }" path="next" @click="nextSlide"></wwLayout>
-        </div>
+
         <wwLayout class="bottom-layout" :class="{ isEditing: isEditing }" path="bottom"></wwLayout>
     </div>
 </template>
@@ -148,18 +161,18 @@ export default {
 
 <style lang="scss" scoped>
 .slider {
-    --max-width: 1300px;
+    // --max-width: 1300px;
 
     position: relative;
     min-height: 80vh;
     overflow: visible;
     width: 100%;
-    max-width: var(--max-width);
+    // max-width: var(--max-width);
 
     .bottom-layout,
     .top-layout {
         min-height: 50px;
-        width: 84%;
+        // width: 84%;
         margin: auto;
 
         display: flex;
@@ -170,67 +183,67 @@ export default {
             border: 1px dashed var(--ww-color-dark-500);
         }
     }
+    .slider-content {
+        position: relative;
 
-    .slide-container {
-        --current-translation: 0%;
-        --transition-duration: 1.5s;
-        --transition-style: ease;
+        .slide-container {
+            --current-translation: 0%;
+            --transition-duration: 1.5s;
+            --transition-style: ease;
 
-        z-index: 2;
-        width: 80%;
-        display: inline-flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        transform: translate3d(var(--current-translation), 0, 0);
-        transition: all var(--transition-duration);
-        transition-timing-function: var(--transition-style);
+            z-index: 2;
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            transform: translate3d(var(--current-translation), 0, 0);
+            transition: all var(--transition-duration);
+            transition-timing-function: var(--transition-style);
 
-        .slide {
-            position: relative;
-            min-width: 80%;
-            margin-left: 20%;
-            min-height: 200px;
+            .slide {
+                position: relative;
+                min-width: 80%;
+                margin-right: 20%;
+                min-height: 200px;
 
-            .slide-layout {
+                .slide-layout {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: stretch;
+                    width: 100%;
+                    height: 100%;
+
+                    &.isEditing {
+                        border: 1px dashed var(--ww-color-dark-500);
+                    }
+                }
+            }
+        }
+
+        .next-slide-container {
+            --left-position: 800px;
+
+            position: absolute;
+            left: var(--left-position);
+            top: 50%;
+            transform: translateY(-50%) translateX(0%);
+
+            z-index: 10;
+            opacity: 1;
+            transition: all 0.2s;
+
+            &.hidden {
+                opacity: 0;
+                transition: all 0.2s;
+            }
+
+            .next-slide {
                 display: flex;
                 flex-direction: column;
                 justify-content: stretch;
-                width: 100%;
-                height: 100%;
 
                 &.isEditing {
                     border: 1px dashed var(--ww-color-dark-500);
                 }
-            }
-
-            &:first-child {
-                margin-left: 10%;
-            }
-        }
-    }
-
-    .next-slide-container {
-        --left-position: 800px;
-
-        position: absolute;
-        width: 20px;
-        left: var(--left-position);
-        margin-left: 17%;
-        top: 50%;
-        transform: translateY(-100%) translateX(-100%);
-
-        z-index: 10;
-        opacity: 1;
-        transition: all 0.2s;
-
-        &.hidden {
-            opacity: 0;
-            transition: all 0.2s;
-        }
-
-        .next-slide {
-            &.isEditing {
-                border: 1px dashed var(--ww-color-dark-500);
             }
         }
     }
