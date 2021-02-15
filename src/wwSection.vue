@@ -47,7 +47,6 @@ export default {
         transitionFunction: 'ease',
         automaticSlideInterval: '5s',
         automatic: false,
-        // maxWidth: 1300,
     },
     /* wwEditor:start */
     wwEditorConfiguration({ content }) {
@@ -116,11 +115,6 @@ export default {
                 '--transition-style': this.content.transitionFunction,
             };
         },
-        // sectionMaxWidth() {
-        //     return {
-        //         '--max-width': `${this.content.maxWidth}px`,
-        //     };
-        // },
         nextButtonPos() {
             return {
                 '--left-position': `${this.slideWidth}px`,
@@ -149,10 +143,6 @@ export default {
             this.slideElements = document.querySelector('.slider');
             this.slideWidth = this.slideElements.offsetWidth * 0.7;
         },
-        // updateSlideSize() {
-        //     this.slideElements = document.querySelector('.slider');
-        //     this.slideWidth = this.slideElements.offsetWidth * 0.8;
-        // },
     },
     mounted() {
         this.handleWindowSize();
@@ -169,7 +159,6 @@ export default {
     position: relative;
     min-height: 80vh;
     overflow: visible;
-    border: 1px solid red;
     width: 100%;
 
     .bottom-layout,
@@ -185,6 +174,7 @@ export default {
             border: 1px dashed var(--ww-color-dark-500);
         }
     }
+
     .slider-content {
         position: relative;
 
