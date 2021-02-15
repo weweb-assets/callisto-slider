@@ -169,10 +169,6 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: stretch;
-
-        &.isEditing {
-            border: 1px dashed var(--ww-color-dark-500);
-        }
     }
 
     .slider-content {
@@ -183,6 +179,8 @@ export default {
             --transition-duration: 1.5s;
             --transition-style: ease;
 
+            position: relative;
+            width: 80%;
             z-index: 2;
             display: inline-flex;
             flex-direction: row;
@@ -203,10 +201,6 @@ export default {
                     justify-content: stretch;
                     width: 100%;
                     height: 100%;
-
-                    &.isEditing {
-                        border: 1px dashed var(--ww-color-dark-500);
-                    }
                 }
             }
         }
@@ -224,11 +218,11 @@ export default {
             transition: all 0.2s;
 
             @media (max-width: 767.98px) {
-                margin-left: 20%;
+                margin-left: 2%;
             }
 
             @media (max-width: 991.98px) {
-                margin-left: 20%;
+                margin-left: 2%;
             }
 
             &.hidden {
@@ -240,10 +234,6 @@ export default {
                 display: flex;
                 flex-direction: column;
                 justify-content: stretch;
-
-                &.isEditing {
-                    border: 1px dashed var(--ww-color-dark-500);
-                }
             }
         }
     }
