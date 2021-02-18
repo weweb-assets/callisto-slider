@@ -1,16 +1,4 @@
 const BASIC_OPTIONS = {
-    // sliderMaxWidth: {
-    //     label: {
-    //         en: 'Max width',
-    //         fr: 'Largeur maximale',
-    //     },
-    //     type: 'Number',
-    //     options: {
-    //         min: 0,
-    //         step: 1,
-    //     },
-    //     path: 'maxWidth',
-    // },
     slidesNumber: {
         label: { en: 'Number of slides', fr: 'Nombre de slides' },
         type: 'TextSelect',
@@ -61,18 +49,6 @@ const BASIC_OPTIONS = {
 };
 
 const AUTOMATIC_OPTIONS = {
-    // sliderMaxWidth: {
-    //     label: {
-    //         en: 'Max width',
-    //         fr: 'Largeur maximale',
-    //     },
-    //     type: 'Number',
-    //     options: {
-    //         min: 0,
-    //         step: 1,
-    //     },
-    //     path: 'maxWidth',
-    // },
     slidesNumber: {
         label: { en: 'Number of slides', fr: 'Nombre de slides' },
         type: 'TextSelect',
@@ -132,7 +108,23 @@ const AUTOMATIC_OPTIONS = {
 };
 
 export const getSettingsConfigurations = content => {
+    const options = [];
+
+    for (let i = 1; i <= content.slidesNumber; i++) {
+        const slide = i.toString();
+        options.push({ value: slide, label: { en: slide, fr: slide } });
+    }
+
+    const slideToEdit = {
+        label: { en: 'Slide to edit', fr: 'Slide to edit' },
+        type: 'TextSelect',
+        options: {
+            options: options,
+        },
+        path: 'slideToEdit',
+    };
+
     return content.automatic
-        ? { settingsOptions: { ...AUTOMATIC_OPTIONS } }
-        : { settingsOptions: { ...BASIC_OPTIONS } };
+        ? { settingsOptions: { ...AUTOMATIC_OPTIONS, slideToEdit: slideToEdit } }
+        : { settingsOptions: { ...BASIC_OPTIONS, slideToEdit: slideToEdit } };
 };

@@ -47,6 +47,7 @@ export default {
         transitionFunction: 'ease',
         automaticSlideInterval: '5s',
         automatic: false,
+        slideToEdit: '1',
     },
     /* wwEditor:start */
     wwEditorConfiguration({ content }) {
@@ -96,6 +97,9 @@ export default {
                 }, interval * 1000);
             }
         },
+        'content.slideToEdit'() {
+            this.currentSlide = this.content.slideToEdit;
+        },
     },
     computed: {
         isEditing() {
@@ -123,6 +127,8 @@ export default {
     },
     methods: {
         nextSlide() {
+            if (this.isEditing) return;
+
             this.currentSlide = this.currentSlide === this.slides ? 1 : this.currentSlide + 1;
 
             if (!this.nextElement) {
