@@ -165,6 +165,7 @@ export default {
     position: relative;
     min-height: 80vh;
     overflow: visible;
+    overflow-x: hidden;
     width: 100%;
 
     .bottom-layout,
