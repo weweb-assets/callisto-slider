@@ -165,8 +165,11 @@ export default {
     position: relative;
     min-height: 80vh;
     overflow: visible;
-    overflow-x: hidden;
     width: 100%;
+
+    @media (max-width: 992px){
+        overflow-x: hidden;
+    }
 
     .bottom-layout,
     .top-layout {
