@@ -4,7 +4,7 @@
 
         <div class="slider-content">
             <div class="slide-container" :style="currentTranslation">
-                <div class="slide" v-for="index in slides" :key="index">
+                <div v-for="index in slides" :key="index" class="slide">
                     <wwLayout
                         class="slide-layout"
                         :class="{ isEditing: isEditing }"
@@ -30,11 +30,10 @@
 import { getSettingsConfigurations } from './configuration';
 
 export default {
-    name: '__COMPONENT_NAME__',
     props: {
-        content: Object,
+        content: { type: Object, required: true },
         /* wwEditor:start */
-        wwEditorState: Object,
+        wwEditorState: { type: Object, required: true },
         /* wwEditor:end */
     },
     wwDefaultContent: {
@@ -61,6 +60,30 @@ export default {
             slideWidth: 720,
             slideElements: null,
         };
+    },
+    computed: {
+        isEditing() {
+            /* wwEditor:start */
+            return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION;
+            /* wwEditor:end */
+            // eslint-disable-next-line no-unreachable
+            return false;
+        },
+        slides() {
+            return parseInt(this.content.slidesNumber);
+        },
+        currentTranslation() {
+            return {
+                '--current-translation': `-${(this.currentSlide - 1) * 100}%`,
+                '--transition-duration': `${this.content.transitionDuration}s`,
+                '--transition-style': this.content.transitionFunction,
+            };
+        },
+        nextButtonPos() {
+            return {
+                '--left-position': `${this.slideWidth}px`,
+            };
+        },
     },
     watch: {
         'content.automatic'() {
@@ -101,29 +124,12 @@ export default {
             this.currentSlide = this.content.slideToEdit;
         },
     },
-    computed: {
-        isEditing() {
-            /* wwEditor:start */
-            return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION;
-            /* wwEditor:end */
-            // eslint-disable-next-line no-unreachable
-            return false;
-        },
-        slides() {
-            return parseInt(this.content.slidesNumber);
-        },
-        currentTranslation() {
-            return {
-                '--current-translation': `-${(this.currentSlide - 1) * 100}%`,
-                '--transition-duration': `${this.content.transitionDuration}s`,
-                '--transition-style': this.content.transitionFunction,
-            };
-        },
-        nextButtonPos() {
-            return {
-                '--left-position': `${this.slideWidth}px`,
-            };
-        },
+    mounted() {
+        this.handleWindowSize();
+        window.addEventListener('resize', this.handleWindowSize);
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.handleWindowSize);
     },
     methods: {
         nextSlide() {
@@ -150,13 +156,6 @@ export default {
             this.slideWidth = this.slideElements.offsetWidth * 0.7;
         },
     },
-    mounted() {
-        this.handleWindowSize();
-        window.addEventListener('resize', this.handleWindowSize);
-    },
-    beforeDestroy() {
-        window.removeEventListener('resize', this.handleWindowSize);
-    },
 };
 </script>
 
@@ -167,7 +166,7 @@ export default {
     overflow: visible;
     width: 100%;
 
-    @media (max-width: 992px){
+    @media (max-width: 992px) {
         overflow-x: hidden;
     }
 

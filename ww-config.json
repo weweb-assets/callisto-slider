@@ -1,6 +1,5 @@
 {
     "componentPath": "./src/wwSection.vue",
-
     "editor": {
         "label": {
             "en": "Callisto slider",
