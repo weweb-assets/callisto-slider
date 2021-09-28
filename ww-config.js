@@ -39,6 +39,7 @@ export default {
 
                 return {options: options}
             },
+            defaultValue: '1'
         },
         transitionDuration: {
             label: { en: 'Transition duration', fr: 'Durée de la transition' },
@@ -74,7 +75,7 @@ export default {
         },
         automaticSlideInterval: {
             hidden: (content) => {
-                return content.automatic
+                return !content.automatic
             },
             type: 'Length',
             label: { en: 'Interval', fr: 'Interval' },
