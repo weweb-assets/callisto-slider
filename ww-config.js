@@ -29,17 +29,15 @@ export default {
             label: { en: 'Slide to edit', fr: 'Slide to edit' },
             type: 'TextSelect',
             section: 'settings',
-            options: {
-                options: (content) => {
-                    const options = [];
+            options: (content) => {
+                const options = [];
 
-                    for (let i = 1; i <= content.slidesNumber; i++) {
-                        const slide = i.toString();
-                        options.push({ value: slide, label: { en: slide, fr: slide } });
-                    }
+                for (let i = 1; i <= content.slidesNumber; i++) {
+                    const slide = i.toString();
+                    options.push({ value: slide, label: { en: slide, fr: slide } });
+                }
 
-                    return options
-                },
+                return options
             },
         },
         transitionDuration: {
