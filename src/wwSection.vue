@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { getSettingsConfigurations } from './configuration';
-
 export default {
     props: {
         content: { type: Object, required: true },
@@ -36,23 +34,6 @@ export default {
         wwEditorState: { type: Object, required: true },
         /* wwEditor:end */
     },
-    wwDefaultContent: {
-        top: [],
-        bottom: [],
-        slides: [],
-        next: [],
-        slidesNumber: '3',
-        transitionDuration: 0.8,
-        transitionFunction: 'ease',
-        automaticSlideInterval: '5s',
-        automatic: false,
-        slideToEdit: '1',
-    },
-    /* wwEditor:start */
-    wwEditorConfiguration({ content }) {
-        return getSettingsConfigurations(content);
-    },
-    /* wwEditor:end */
     data() {
         return {
             currentSlide: 1,
