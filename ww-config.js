@@ -34,10 +34,10 @@ export default {
 
                 for (let i = 1; i <= content.slidesNumber; i++) {
                     const slide = i.toString();
-                    options.push({ value: `${slide}`, label: { en: `${slide}`, fr: `${slide}` } });
+                    options.push({ value: slide, label: { en: slide, fr: slide } });
                 }
 
-                return options
+                return {options: options}
             },
         },
         transitionDuration: {
